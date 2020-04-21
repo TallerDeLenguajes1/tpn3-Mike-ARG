@@ -43,19 +43,32 @@ int main() {
     cliente *p;
     p = (cliente *) malloc(sizeof(cliente) * cantClientes);
 
-    (*p).NombreCliente = (char *) malloc(sizeof(char) * MAX);
-
     for (int i = 0; i < cantClientes; i++) {
-        (*p).ClienteID = i;
+        p[i].ClienteID = i;
+
+        p[i].NombreCliente = (char *) malloc(sizeof(char) * MAX);
         
         printf("Ingrese el nombre del cliente: ");
-        scanf("%s", (*p).NombreCliente);
+        scanf("%s", p[i].NombreCliente);
         fflush(stdin);
 
-        (*p).CantidadProductosAPedir = rand() % 5 + 1;
-        (*p).Productos = (producto *) malloc(sizeof(producto) * (*p).CantidadProductosAPedir);
+        p[i].CantidadProductosAPedir = rand() % 5 + 1;
+        p[i].Productos = (producto *) malloc(sizeof(producto) * p->CantidadProductosAPedir);
 
     }
+
+    for (int i = 0; i < cantClientes; i++) {
+        (p + i)->Productos->ProductoID = i;
+        (p + i)->Productos->Cantidad = rand() % 10 + 1;
+        (p + i)->Productos->TipoProducto = (char *) malloc(sizeof(char) * (p + i)->Productos->Cantidad);
+
+        for (int j = 0; j < (p + i)->Productos->Cantidad; j++) {
+            ((p + i)->Productos->TipoProducto)[j] = TiposProductos[rand() % 5];
+    }
+    }
+
+
+    
 
 
 
